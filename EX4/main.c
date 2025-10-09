@@ -18,11 +18,14 @@ int main() {
     fread(rc, sizeof rc, 1, fp);
     fclose(fp);
 
-    for (int i = 0; i < 3; i++) printf("%d ", ra[i]);
+    for (int i = 0; i < 3; i++) 
+        printf("%d ", ra[i]);
     printf("\n");
-    for (int i = 0; i < 3; i++) printf("%c ", rb[i]);
+    for (int i = 0; i < 3; i++) 
+        printf("%c ", rb[i]);
     printf("\n");
-    for (int i = 0; i < 3; i++) printf("%.6f ", rc[i]);
+    for (int i = 0; i < 3; i++) 
+        printf("%.6f ", rc[i]);
     printf("\n");
 
     return 0;
