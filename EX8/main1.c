@@ -15,7 +15,6 @@ private:
     std::ofstream file;
     std::vector<std::vector<int>> tickets; // 儲存彩券
 
-    // 產生一組不重複的 7 個數字 (1~69)
     std::vector<int> generateLotto() {
         std::set<int> selected;
         while (selected.size() < 7) {
@@ -24,14 +23,12 @@ private:
         return std::vector<int>(selected.begin(), selected.end());
     }
 
-    // 格式化數字為兩位數 (如 5 → "05")
     std::string formatNumber(int num) {
         std::ostringstream oss;
         oss << std::setw(2) << std::setfill('0') << num;
         return oss.str();
     }
 
-    // 輸出到檔案與螢幕的統一函式
     void printLine(const std::string &line) {
         std::cout << line << "\n";
         file << line << "\n";
@@ -39,11 +36,12 @@ private:
 
 public:
     LottoGenerator(int n) : groups(n) {
-        srand(static_cast<unsigned int>(time(NULL))); // 每次執行不同亂數
+        srand(static_cast<unsigned int>(time(NULL)));
     }
 
     bool openFile() {
-        file.open("lotto.txt"); // 固定檔名
+        // 每次都直接覆蓋 lotto.txt
+        file.open("lotto.txt", std::ios::trunc);
         return file.is_open();
     }
 
@@ -55,7 +53,6 @@ public:
 
         printLine("========= lotto649 =========");
 
-        // 當前日期
         time_t now = time(0);
         tm *ltm = localtime(&now);
         std::ostringstream dateStream;
@@ -106,7 +103,7 @@ public:
                     matchCount++;
             }
 
-            if (matchCount >= 1) { // ✅ 只要中 1 個號碼就算中獎
+            if (matchCount >= 1) {
                 found = true;
                 std::ostringstream line;
                 line << "[" << (i + 1) << "]: ";
@@ -124,12 +121,10 @@ public:
         }
 
         printLine("========= csie@CGU =========");
-
         std::cout << "lotto.txt 已成功產生，並完成對獎！\n";
     }
 };
 
-// ==================== main ====================
 int main() {
     int n;
     std::cout << "請輸入要購買的組數 (1~5): ";
